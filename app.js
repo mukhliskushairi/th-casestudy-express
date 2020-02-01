@@ -6,6 +6,11 @@ const logger = require('morgan');
 const cors = require('cors');
 const debugError = require('debug')('case-study:error');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+const dbService = require('./services/db.service');
+
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 
@@ -24,9 +29,6 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
