@@ -29,4 +29,27 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+router.post('/login', async (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string().required()
+  }).required();
+
+  const validation = schema.validate(req.body);
+
+  if (validation.error) {
+    next(createError(400, validation.error.details[0].message));
+    return;
+  }
+
+  try {
+    const user = await authService.login(req.body);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

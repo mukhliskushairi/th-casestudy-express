@@ -19,6 +19,28 @@ class AuthService {
       throw createError(409, 'Account already exists');
     }
   }
+
+  async login({ email, password }) {
+    function throwInvalidError() {
+      throw createError(401, 'Invalid email or password');
+    }
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      throwInvalidError();
+    }
+
+    debugInfo(user);
+
+    const valid = user.hash === userService.hash(password + user.salt);
+
+    if (!valid) {
+      throwInvalidError();
+    }
+
+    return user;
+  }
 }
 
 module.exports = new AuthService();
