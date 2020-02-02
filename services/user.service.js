@@ -1,4 +1,6 @@
 const crypto = require('crypto');
+const dbService = require('./db.service');
+const User = require('../models/User');
 
 class UserService {
   hashPassword(password) {
@@ -13,6 +15,15 @@ class UserService {
       .createHash('sha256')
       .update(value)
       .digest('hex');
+  }
+
+  async getAllUsers() {
+    const users = await User.findAll({
+      attributes: ['name', 'email'],
+      order: [['name', 'ASC']]
+    });
+
+    return users;
   }
 }
 

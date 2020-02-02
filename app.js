@@ -13,6 +13,11 @@ const dbService = require('./services/db.service');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const usersRouter = require('./routes/users');
+
+const passport = require('passport');
+const strategy = require('./config/passport-strategy');
+passport.use(strategy);
 
 const app = express();
 
@@ -23,12 +28,14 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/users', usersRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

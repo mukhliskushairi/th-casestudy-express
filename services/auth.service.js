@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const userService = require('./user.service');
+const jwtService = require('./jwt.service');
 const debugInfo = require('debug')('case-study:info');
 const User = require('../models/User');
 
@@ -39,7 +40,7 @@ class AuthService {
       throwInvalidError();
     }
 
-    return user;
+    return jwtService.sign({ email: user.email });
   }
 }
 
