@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
+const { DB } = require('../config/properties');
 
-const sequelize = new Sequelize('tribehired-case-study', 'root', '', {
-  host: 'localhost',
-  port: 3306,
+const sequelize = new Sequelize(DB.SCHEMA, DB.USER, DB.PASSWORD, {
+  host: DB.HOST,
+  port: DB.PORT,
   dialect: 'mysql',
   pool: {
     max: 5,
