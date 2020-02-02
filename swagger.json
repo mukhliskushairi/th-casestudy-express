@@ -12,8 +12,8 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000",
-      "description": "Local server"
+      "url": "https://tribehired-casestudy.mukhliskushairi.com",
+      "description": "mukhliskushairi.com Cloud"
     }
   ],
   "paths": {
