@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const userService = require('./user.service');
 const jwtService = require('./jwt.service');
-const debugInfo = require('debug')('case-study:info');
 const User = require('../models/User');
 
 class AuthService {
@@ -31,8 +30,6 @@ class AuthService {
     if (!user) {
       throwInvalidError();
     }
-
-    debugInfo(user);
 
     const valid = user.hash === userService.hash(password + user.salt);
 

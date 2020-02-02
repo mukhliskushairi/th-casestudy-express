@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const compression = require('compression');
 const debugError = require('debug')('case-study:error');
 
 const swaggerUi = require('swagger-ui-express');
@@ -11,7 +12,6 @@ const swaggerDocument = require('./swagger.json');
 
 const dbService = require('./services/db.service');
 
-const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 
@@ -32,8 +32,8 @@ app.use(passport.initialize());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use(compression());
 
-app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 

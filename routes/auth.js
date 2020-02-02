@@ -3,7 +3,6 @@ const router = express.Router();
 const Joi = require('@hapi/joi');
 const createError = require('http-errors');
 const authService = require('../services/auth.service');
-const debugInfo = require('debug')('case-study:info');
 
 router.post('/register', async (req, res, next) => {
   const schema = Joi.object({
